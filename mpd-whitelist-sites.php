@@ -18,6 +18,7 @@ class MPDWhitelistSites
         // Disable restrict plugin
         remove_action('update_option_mdp_settings', 'mpd_globalise_settings', 10);
         remove_action('mdp_end_plugin_setting_page', 'restrict_addon_mpd_settings', 10);
+        remove_filter('mpd_allowed_sites', 'mpd_filter_restricted_sites', 10);
         remove_action('admin_head', 'mpd_add_addon_script_to_settings_page', 10);
         remove_filter('mpd_is_active', 'mpd_is_site_active', 10);
 
