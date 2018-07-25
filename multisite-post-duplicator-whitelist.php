@@ -15,18 +15,21 @@ class MPDWhitelistSites
 
     public static function init()
     {
-        // Disable restrict plugin
-        remove_action('update_option_mdp_settings', 'mpd_globalise_settings', 10);
-        remove_action('mdp_end_plugin_setting_page', 'restrict_addon_mpd_settings', 10);
-        remove_filter('mpd_allowed_sites', 'mpd_filter_restricted_sites', 10);
-        remove_action('admin_head', 'mpd_add_addon_script_to_settings_page', 10);
-        remove_filter('mpd_is_active', 'mpd_is_site_active', 10);
+        add_action('plugins_loaded', array(get_called_class(), 'deactivate_restrictSites_plugin'), 11);
 
         add_action('mdp_end_plugin_setting_page', array(get_called_class(), 'addHooks'));
         add_filter('mpd_is_active', array(get_called_class(), "is_site_active"), 100);
         add_filter('mpd_allowed_sites', array(get_called_class(), "filter_sites"), 100, 1);
     }
 
+    public static function deactivate_restrictSites_plugin() {
+
+        remove_action('update_option_mdp_settings', 'mpd_globalise_settings', 10);
+        remove_action('mdp_end_plugin_setting_page', 'restrict_addon_mpd_settings', 10);
+        remove_filter('mpd_allowed_sites', 'mpd_filter_restricted_sites', 10);
+        remove_action('admin_head', 'mpd_add_addon_script_to_settings_page', 10);
+        remove_filter('mpd_is_active', 'mpd_is_site_active', 10);
+    }
 
     public static function is_site_active() {
 
