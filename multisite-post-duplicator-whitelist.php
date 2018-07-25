@@ -74,9 +74,9 @@ class MPDWhitelistSites
         $options = get_option('mdp_settings');
 
         $mdp_allow_radio_label_value =
-        $options && !empty($options['allow_option_setting'])
-        ? $options['allow_option_setting']
-        : 'none';
+            $options && !empty($options['allow_option_setting'])
+            ? $options['allow_option_setting']
+            : 'none';
 
         ?>
 
@@ -110,6 +110,11 @@ class MPDWhitelistSites
             <?php foreach ($sites as $site): ?>
 
                 <?php
+                
+                if ($site->blog_id == get_current_blog_id()) {
+
+                    continue;
+                }
 
                 $blog_details = get_blog_details($site->blog_id);
                 $checkme = '';
