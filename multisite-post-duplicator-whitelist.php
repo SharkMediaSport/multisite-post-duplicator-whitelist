@@ -35,7 +35,7 @@ class MPDWhitelistSites
 
         $mdp_settings = get_option('mdp_settings');
 
-        return count(mpd_get_allowed_sites()) > 1;
+        return count(mpd_get_allowed_sites()) > 0;
     }
 
     public static function filter_sites($sites) {
