@@ -40,6 +40,8 @@ class MPDWhitelistSites
 
     public static function filter_sites($sites) {
 
+        $sites = mpd_wp_get_sites();
+
         $mdp_settings = get_option('mdp_settings');
         $settings_keys = array_keys($mdp_settings);
 
@@ -54,10 +56,12 @@ class MPDWhitelistSites
         });
 
         $allowed_sites = array_values($allow_site_settings);
+        $current_blog_id = get_current_blog_id();
 
         return array_filter($sites, function($site) use ($allowed_sites) {
 
-            return in_array($site->blog_id, $allowed_sites);
+            return in_array($site->blog_id, $allowed_sites)
+                   && $site->blog_id != $current_blog_id;
         });
     }
 
